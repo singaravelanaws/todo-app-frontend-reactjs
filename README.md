@@ -21,7 +21,6 @@ $ npm start
 
 This repo is configured as a [git submodule](https://git-scm.com/book/en/v2/Git-Tools-Submodules) within the following repos:
 
-* [todo-app-cpp](http://github.com/mariadb-developers/todo-app-cpp)
 * [todo-app-nodejs](http://github.com/mariadb-developers/todo-app-nodejs)
 * [todo-app-nodejs-sequelize](http://github.com/mariadb-developers/todo-app-nodejs-sequelize)
 * [todo-app-python](http://github.com/mariadb-developers/todo-app-python)

@@ -1,5 +1,5 @@
 
-This repository contains the a simple web application front-end application, built with React.js, called `TODO`. The TODO front-end communicates with a back-end API project (which should already be up and running when this app is started).
+This repository contains the a simple web application front-end application, built with React.js, called `TODO`. The `TODO` front-end communicates with a back-end API project (which should already be up and running when this app is started).
 
 ## Build and run the app
 

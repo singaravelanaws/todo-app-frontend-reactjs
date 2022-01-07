@@ -24,6 +24,11 @@ This repo is configured as a [git submodule](https://git-scm.com/book/en/v2/Git-
 * [todo-app-nodejs](http://github.com/mariadb-developers/todo-app-nodejs)
 * [todo-app-nodejs-sequelize](http://github.com/mariadb-developers/todo-app-nodejs-sequelize)
 * [todo-app-python](http://github.com/mariadb-developers/todo-app-python)
+* [todo-app-python-sqlalchemy](http://github.com/mariadb-developers/todo-app-python-sqlalchemy)
+* [todo-app-dotnet-dapper](http://github.com/mariadb-developers/todo-app-dotnet-dapper)
+* [todo-app-dotnet-entityframework](http://github.com/mariadb-developers/todo-app-dotnet-entityframework)
+* [todo-app-jdbc-spring](http://github.com/mariadb-developers/todo-app-jdbc-spring)
+* [todo-app-r2dbc-spring](http://github.com/mariadb-developers/todo-app-r2dbc-spring)
 
 
 

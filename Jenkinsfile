@@ -7,14 +7,14 @@ pipeline {
 		
     }
     stages {
-			stage('Testing') {
-				steps {
+	stage('Testing') {
+	   steps {
                  script {
                     sh '''
-						      echo "Testing
+			echo "Testing"
                     '''
-					}
-				}
+		          }
+		  }
 		}
 	 }
         post {

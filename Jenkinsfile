@@ -20,13 +20,13 @@ pipeline {
         post {
                 success {
                         emailext mimeType: 'text/html',
-                            body: '${FILE, path="/opt/html-template/success.html"}',
+                            body: '${FILE, path="/opt/html-template/success/success.html"}',
                             subject: currentBuild.currentResult + " : " + env.JOB_NAME,
                             to: "${EMAIL_TO}"
                          }
                         failure {
                         emailext mimeType: 'text/html',
-                            body: '${FILE, path="/opt/html-template/success.html"}',
+                            body: '${FILE, path="/opt/html-template/success/success.html"}',
                             subject: currentBuild.currentResult + " : " + env.JOB_NAME,
                             to: "${EMAIL_TO}"
                         }

@@ -1,0 +1,68 @@
+/* styles.css */
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f2f2f2;
+}
+
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+  background-color: #ffffff;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.header {
+  background-color: #009688;
+  color: #ffffff;
+  text-align: center;
+  padding: 20px;
+}
+
+.status {
+  font-size: 24px;
+  padding: 10px;
+  border-radius: 4px;
+}
+
+.success {
+  background-color: #4caf50;
+  color: #ffffff;
+}
+
+.main {
+  padding: 20px;
+}
+
+.build-details h2,
+.console-output h2 {
+  font-size: 24px;
+  margin-bottom: 15px;
+  color: #333333;
+}
+
+ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+li {
+  margin-bottom: 10px;
+}
+
+a {
+  color: #4caf50;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+.console-output pre {
+  background-color: #eeeeee;
+  padding: 10px;
+  border-radius: 4px;
+  overflow-x: scroll;
+}

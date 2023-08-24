@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Jenkins Build Status</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="container">
+    <header class="header">
+      <h1>Jenkins Build Status</h1>
+      <div class="status success">Success</div>
+    </header>
+    <main class="main">
+      <section class="build-details">
+        <h2>Build Details</h2>
+        <ul>
+          <li><strong>Repository URL:</strong> <a href="REPO_URL">${env.GIT_URL}</a></li>
+          <li><strong>Branch:</strong> ${env.GIT_BRANCH}</li>
+          <li><strong>Commit ID:</strong> ${env.GIT_COMMIT} </li>
+          <li><strong>Job Name:</strong> ${env.JOB_NAME}</li>
+          <li><strong>Job Build URL:</strong> <a href="JOB_URL">${env.BUILD_URL}</a></li>
+          <li><strong>Environment:</strong> ${env.ENVIRONMENT}</li>
+          <li><strong>Build ID:</strong> ${env.BUILD_ID}</li>
+          <li><strong>Jenkins URL:</strong> <a href="JENKINS_URL">${env.JENKINS_URL}</a></li>
+          <li><strong>Application URL:</strong> <a href="APPLICATION_URL">${env.APPLICATION_URL}</a></li>
+        </ul>
+      </section>
+      <section class="console-output">
+        <pre>
+          <p>Check console output at &QUOT;<a href='${env.BUILD_URL}'>${env.JOB_NAME} [${env.BUILD_NUMBER}]</a>&QUOT;</p>
+          <!-- Console output will be displayed here -->
+        </pre>
+      </section>
+    </main>
+  </div>
+</body>
+</html>

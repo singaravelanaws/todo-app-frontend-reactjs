@@ -21,10 +21,10 @@
           <li><strong>Commit ID:</strong> ${GIT_COMMIT} </li>
           <li><strong>Job Name:</strong> ${JOB_NAME}</li>
           <li><strong>Job Build URL:</strong> <a href="JOB_URL">${BUILD_URL}</a></li>
-          <li><strong>Environment:</strong> ${ENVIRONMENT}</li>
-          <li><strong>Build ID:</strong> ${BUILD_ID}</li>
+          <li><strong>Environment:</strong> ${env.ENVIRONMENT}</li>
+          <li><strong>Build No:</strong> ${BUILD_NUMBER}</li>
           <li><strong>Jenkins URL:</strong> <a href="JENKINS_URL">${JENKINS_URL}</a></li>
-          <li><strong>Application URL:</strong> <a href="APPLICATION_URL">${APPLICATION_URL}</a></li>
+          <li><strong>Application URL:</strong> <a href="APPLICATION_URL">${env.APPLICATION_URL}</a></li>
         </ul>
       </section>
     </main>

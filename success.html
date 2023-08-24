@@ -16,22 +16,16 @@
       <section class="build-details">
         <h2>Build Details</h2>
         <ul>
-          <li><strong>Repository URL:</strong> <a href="REPO_URL">${env.GIT_URL}</a></li>
-          <li><strong>Branch:</strong> ${env.GIT_BRANCH}</li>
-          <li><strong>Commit ID:</strong> ${env.GIT_COMMIT} </li>
-          <li><strong>Job Name:</strong> ${env.JOB_NAME}</li>
-          <li><strong>Job Build URL:</strong> <a href="JOB_URL">${env.BUILD_URL}</a></li>
-          <li><strong>Environment:</strong> ${env.ENVIRONMENT}</li>
-          <li><strong>Build ID:</strong> ${env.BUILD_ID}</li>
-          <li><strong>Jenkins URL:</strong> <a href="JENKINS_URL">${env.JENKINS_URL}</a></li>
-          <li><strong>Application URL:</strong> <a href="APPLICATION_URL">${env.APPLICATION_URL}</a></li>
+          <li><strong>Repository URL:</strong> <a href="REPO_URL">${GIT_URL}</a></li>
+          <li><strong>Branch:</strong> ${GIT_BRANCH}</li>
+          <li><strong>Commit ID:</strong> ${GIT_COMMIT} </li>
+          <li><strong>Job Name:</strong> ${JOB_NAME}</li>
+          <li><strong>Job Build URL:</strong> <a href="JOB_URL">${BUILD_URL}</a></li>
+          <li><strong>Environment:</strong> ${ENVIRONMENT}</li>
+          <li><strong>Build ID:</strong> ${BUILD_ID}</li>
+          <li><strong>Jenkins URL:</strong> <a href="JENKINS_URL">${JENKINS_URL}</a></li>
+          <li><strong>Application URL:</strong> <a href="APPLICATION_URL">${APPLICATION_URL}</a></li>
         </ul>
-      </section>
-      <section class="console-output">
-        <pre>
-          <p>Check console output at &QUOT;<a href='${env.BUILD_URL}'>${env.JOB_NAME} [${env.BUILD_NUMBER}]</a>&QUOT;</p>
-          <!-- Console output will be displayed here -->
-        </pre>
       </section>
     </main>
   </div>

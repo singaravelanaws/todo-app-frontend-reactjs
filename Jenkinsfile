@@ -18,18 +18,18 @@ pipeline {
        }
     }
          // Trigger Email Success or Failure
-        post {
-             success {
-                    emailext mimeType: 'text/html',
-                    body: '${FILE, path="/var/lib/jenkins/success/success.html"}',
-                    subject: currentBuild.currentResult + " : " + env.JOB_NAME,
-                    to: "${EMAIL_TO}"
-            }
-             failure {
-                    emailext mimeType: 'text/html',
-                    body: '${FILE, path="/var/lib/jenkins/success/success.html"}',
-                    subject: currentBuild.currentResult + " : " + env.JOB_NAME,
-                    to: "${EMAIL_TO}"
-            }
-        }
+        // post {
+        //      success {
+        //             emailext mimeType: 'text/html',
+        //             body: '${FILE, path="/var/lib/jenkins/success/success.html"}',
+        //             subject: currentBuild.currentResult + " : " + env.JOB_NAME,
+        //             to: "${EMAIL_TO}"
+        //     }
+        //      failure {
+        //             emailext mimeType: 'text/html',
+        //             body: '${FILE, path="/var/lib/jenkins/success/success.html"}',
+        //             subject: currentBuild.currentResult + " : " + env.JOB_NAME,
+        //             to: "${EMAIL_TO}"
+        //     }
+        // }
 }

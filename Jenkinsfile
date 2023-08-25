@@ -2,11 +2,11 @@ pipeline {
     agent any
     environment {
             CLOUDSDK_CORE_PROJECT = 'prj-contentportal-dev-389901'
-            EMAIL_TO = "singaravelan.palani@sifycorp.com"	
-	   def COMMITID = sh(returnStdout: true, script: 'git rev-parse HEAD').trim()
-           def AUTHOR = sh(returnStdout: true, script: 'git show -s --format="%an <%ae>" $GIT_COMMIT').trim()
-           def DATE_MODIFIED = sh(returnStdout: true, script: 'git show -s --format="%ai" $GIT_COMMIT').trim()
-	    //RELEASE_NOTES = sh (script: """git log --format="medium" -1 ${GIT_COMMIT}""", returnStdout:true)
+            EMAIL_TO = "singaravelan.palani@sifycorp.com"
+	    ENVIRONMENT = 'Development'
+	    def COMMITID = sh(returnStdout: true, script: 'git rev-parse HEAD').trim()
+            def AUTHOR = sh(returnStdout: true, script: 'git show -s --format="%an <%ae>" $GIT_COMMIT').trim()
+            def DATE_MODIFIED = sh(returnStdout: true, script: 'git show -s --format="%ai" $GIT_COMMIT').trim()
     }
     stages {
        // Node JS Code Build 
@@ -16,7 +16,7 @@ pipeline {
                             echo $COMMITID
 			    echo $AUTHOR
        			    echo $DATE_MODIFIED
-	                    echo ${ENV_DEVELOPMENT}
+	                    echo ${ENVIRONMENT}
                         '''
                     }
        }

@@ -117,10 +117,6 @@
                         <td>${PROJECT_NAME}</td>
                     </tr>
                     <tr>
-                        <th>ENVIRONMENT:</th>
-                        <td>${env.ENVIRONMENT}</td>
-                    </tr>
-                    <tr>
                         <th>BRANCH:</th>
                         <td>${GIT_BRANCH}</td>
                     </tr>
@@ -135,7 +131,19 @@
                     <tr>
                         <th>DATE_MODIFIED:</th>
                         <td>${DATE_MODIFIED}</td>
-                    </tr>            
+                    </tr>    
+                    <tr>
+                        <th>BUILD_URL:</th>
+						<td><a href="${BUILD_URL}">${BUILD_URL}</a></td>
+                    </tr>
+                    <tr>
+                        <th>BUILD_NO:</th>
+                        <td>${BUILD_NUMBER}</td>
+                    </tr>
+                    <tr>
+                        <th>JENKINS_URL:</th>
+                        <td><a href="${JENKINS_URL}">${JENKINS_URL}</a></td>
+                    </tr>
                 </tbody>
             </table>
             <div class="">

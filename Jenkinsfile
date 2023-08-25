@@ -13,9 +13,9 @@ pipeline {
           stage('Echo'){
             steps{
                         sh '''
-                            echo $commitId
-			    echo $author
-       			    echo $date
+                            echo $COMMITID
+			    echo $AUTHOR
+       			    echo $DATE_MODIFIED
                         '''
                     }
        }

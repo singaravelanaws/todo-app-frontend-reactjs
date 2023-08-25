@@ -5,7 +5,7 @@ pipeline {
             EMAIL_TO = "singaravelan.palani@sifycorp.com"	
 	   def commitId = sh(returnStdout: true, script: 'git rev-parse HEAD').trim()
            def author = sh(returnStdout: true, script: 'git show -s --format="%an <%ae>" $GIT_COMMIT').trim()
-           def date = sh(returnStdout: true, script: 'git show -s --format="%ad" --date=short $GIT_COMMIT').trim()
+           def date = sh(returnStdout: true, script: 'git show -s --format="%ai" $GIT_COMMIT').trim()
 	    //RELEASE_NOTES = sh (script: """git log --format="medium" -1 ${GIT_COMMIT}""", returnStdout:true)
     }
     stages {

@@ -3,16 +3,14 @@ pipeline {
     environment {
             CLOUDSDK_CORE_PROJECT = 'prj-contentportal-dev-389901'
             EMAIL_TO = "singaravelan.palani@sifycorp.com"	
-	    commitMsg = "commit.substring( commit.indexOf(' ') ).trim()"
-       	    commitid = 'sh(returnStdout: true, script: 'git log -1 --oneline').trim()'
+	    RELEASE_NOTES = sh (script: """git log --format="medium" -1 ${GIT_COMMIT}""", returnStdout:true)
     }
     stages {
        // Node JS Code Build 
           stage('Echo'){
             steps{
                         sh '''
-                            echo $commitMsg
-			    echo $commitid
+                            echo $RELEASE_NOTES
                         '''
                     }
        }

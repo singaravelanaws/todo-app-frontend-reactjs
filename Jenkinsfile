@@ -16,7 +16,6 @@ pipeline {
                             echo $COMMITID
 			    echo $AUTHOR
        			    echo $DATE_MODIFIED
-	      		    echo ${env.ENV_DEVELOPMENT}
 	                    echo ${ENV_DEVELOPMENT}
                         '''
                     }

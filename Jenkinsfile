@@ -13,7 +13,9 @@ pipeline {
           stage('Echo'){
             steps{
                         sh '''
-                            echo $RELEASE_NOTES
+                            echo $commitId
+			    echo $author
+       			    echo $date
                         '''
                     }
        }

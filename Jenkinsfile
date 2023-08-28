@@ -5,8 +5,8 @@ pipeline {
         CLOUDSDK_CORE_PROJECT = 'prj-contentportal-dev-389901'
         EMAIL_TO = "singaravelan.palani@sifycorp.com"
         ENVIRONMENT = 'Development'
-        COMMITID = sh(returnStdout: true, script: 'git rev-parse HEAD').trim()
-        AUTHOR = sh(returnStdout: true, script: 'git show -s --format="%an <%ae>" $GIT_COMMIT').trim()
+        //COMMITID = sh(returnStdout: true, script: 'git rev-parse HEAD').trim()
+        COMMITID = sh(returnStdout: true, script: 'git show -s --format="%an <%ae>" $GIT_COMMIT').trim()
         DATE_MODIFIED = sh(returnStdout: true, script: 'git show -s --format="%ai" $GIT_COMMIT').trim()
         EMAIL_TEMPLATE_FILE = 'success.html'
     }
@@ -14,7 +14,7 @@ pipeline {
     stages {
         stage('Build') {
             steps {
-                // Your build steps here
+                echo $ENVIRONMENT $COMMITID $DATE_MODIFIED
             }
         }
     }

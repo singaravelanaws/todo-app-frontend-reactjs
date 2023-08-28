@@ -40,7 +40,7 @@ pipeline {
             script {
                 def emailTemplate = readFile("email-template.html")
                 def gitCommitId = sh(returnStdout: true, script: 'git rev-parse HEAD').trim()
-                def gitCommitMessages = sh(returnStdout: true, script: "git log --pretty=format:\"%s\" ${gitCommitId}").trim()
+                def gitCommitMessages = sh(returnStdout: true, script: "git log --pretty=format:\"%s\" -n 1 ${gitCommitId}").trim()
                 def gitDateModified = sh(returnStdout: true, script: "git show -s --format=\"%ai\" ${gitCommitId}").trim()
                 def gitCommitterName = sh(returnStdout: true, script: 'git log -1 --pretty=format:"%cn"').trim()
                 def gitCommitterEmail = sh(returnStdout: true, script: 'git log -1 --pretty=format:"%ce"').trim()

@@ -13,7 +13,7 @@ pipeline {
         GIT_COMMITTER_EMAIL = sh(returnStdout: true, script: 'git log -1 --pretty=format:"%ce"').trim()
         GIT_AUTHOR_NAME = sh(returnStdout: true, script: 'git log -1 --pretty=format:"%an"').trim()
         GIT_AUTHOR_EMAIL = sh(returnStdout: true, script: 'git log -1 --pretty=format:"%ae"').trim()
-	APPLICATION_URL = 'http://crp-dev.sify.digital
+	APPLICATION_URL = 'http://crp-dev.sify.digital'
     }
     
     stages {

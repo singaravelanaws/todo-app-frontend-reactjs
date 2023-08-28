@@ -1,77 +1,85 @@
 pipeline {
     agent any
-    
+
     environment {
         DEV_PROJECT = 'prj-contentportal-dev-389901'
-	TEST_PROJECT = 'prj-contentportal-test-389901'
-        EMAIL_TO = "singaravelan.palani@sifycorp.com"	  
-	BRANCH_NAME = sh(returnStdout: true, script: 'git rev-parse --abbrev-ref HEAD').trim()
+        TEST_PROJECT = 'prj-contentportal-test-389901'
+        EMAIL_TO = 'singaravelan.palani@sifycorp.com'
+        BRANCH_NAME = env.GIT_BRANCH ?: 'unknown'
     }
+
     stages {
         stage('Build') {
             steps {
                 script {
-			if ('master' == 'master') {
-                      		sh'''
-					gcloud config set project ${DEV_PROJECT}
-					echo "this is ${BRANCH_NAME}"
-				'''
-                   	 } else if ('test' == 'test') {
-                        	sh'''
-					gcloud config set project ${TEST_PROJECT}
-					echo "this is ${BRANCH_NAME}"
-				'''
-                    	} else {
-                        	error("Unsupported branch: ${BRANCH_NAME}")
-                    	}
-		      }
-            	}
+                    def project
+                    def environmentName
+
+                    switch (BRANCH_NAME) {
+                        case 'refs/heads/master':
+                            project = DEV_PROJECT
+                            environmentName = 'Development'
+                            break
+                        case 'refs/heads/test':
+                            project = TEST_PROJECT
+                            environmentName = 'Testing'
+                            break
+                        default:
+                            error("Unsupported branch: ${BRANCH_NAME}")
+                    }
+
+                    sh "gcloud config set project ${project}"
+                    echo "This is ${BRANCH_NAME}"
+                }
+            }
         }
     }
-    
+
     post {
         success {
             script {
-            
                 def emailTemplate = readFile("email-template.html")
-                
-                if ('master' == 'master') {
-			ENVIRONMENT_NAME = 'Development'
-			GIT_COMMIT_ID = sh(returnStdout: true, script: 'git rev-parse HEAD').trim()
-			GIT_COMMIT_MESSAGES = sh(returnStdout: true, script: 'git log --pretty=format:"%s" $GIT_COMMIT^..$GIT_COMMIT').trim()
-			GIT_DATE_MODIFIED = sh(returnStdout: true, script: 'git show -s --format="%ai" $GIT_COMMIT').trim()
-			GIT_COMMITTER_NAME = sh(returnStdout: true, script: 'git log -1 --pretty=format:"%cn"').trim()
-			GIT_COMMITTER_EMAIL = sh(returnStdout: true, script: 'git log -1 --pretty=format:"%ce"').trim()
-			GIT_AUTHOR_NAME = sh(returnStdout: true, script: 'git log -1 --pretty=format:"%an"').trim()
-			GIT_AUTHOR_EMAIL = sh(returnStdout: true, script: 'git log -1 --pretty=format:"%ae"').trim()
-			APPLICATION_URL = 'http://crp-dev.sify.digital'
-                } else if ('test' == 'test') {
-			ENVIRONMENT_NAME = 'Testing'
-			GIT_COMMIT_ID = sh(returnStdout: true, script: 'git rev-parse HEAD').trim()
-			GIT_COMMIT_MESSAGES = sh(returnStdout: true, script: 'git log --pretty=format:"%s" $GIT_COMMIT^..$GIT_COMMIT').trim()
-			GIT_DATE_MODIFIED = sh(returnStdout: true, script: 'git show -s --format="%ai" $GIT_COMMIT').trim()
-			GIT_COMMITTER_NAME = sh(returnStdout: true, script: 'git log -1 --pretty=format:"%cn"').trim()
-			GIT_COMMITTER_EMAIL = sh(returnStdout: true, script: 'git log -1 --pretty=format:"%ce"').trim()
-			GIT_AUTHOR_NAME = sh(returnStdout: true, script: 'git log -1 --pretty=format:"%an"').trim()
-			GIT_AUTHOR_EMAIL = sh(returnStdout: true, script: 'git log -1 --pretty=format:"%ae"').trim()
-			APPLICATION_URL = 'http://crp-test.sify.digital'
+                def gitCommitId = sh(returnStdout: true, script: 'git rev-parse HEAD').trim()
+                def gitCommitMessages = sh(returnStdout: true, script: "git log --pretty=format:\"%s\" ${gitCommitId}").trim()
+                def gitDateModified = sh(returnStdout: true, script: "git show -s --format=\"%ai\" ${gitCommitId}").trim()
+                def gitCommitterName = sh(returnStdout: true, script: 'git log -1 --pretty=format:"%cn"').trim()
+                def gitCommitterEmail = sh(returnStdout: true, script: 'git log -1 --pretty=format:"%ce"').trim()
+                def gitAuthorName = sh(returnStdout: true, script: 'git log -1 --pretty=format:"%an"').trim()
+                def gitAuthorEmail = sh(returnStdout: true, script: 'git log -1 --pretty=format:"%ae"').trim()
+                def applicationUrl
+                def environmentName
+
+                switch (BRANCH_NAME) {
+                    case 'refs/heads/master':
+                        environmentName = 'Development'
+                        applicationUrl = 'http://crp-dev.sify.digital'
+                        break
+                    case 'refs/heads/test':
+                        environmentName = 'Testing'
+                        applicationUrl = 'http://crp-test.sify.digital'
+                        break
                 }
-                
-                emailTemplate = emailTemplate.replace('${ENVIRONMENT_NAME}', ENVIRONMENT_NAME)
-                emailTemplate = emailTemplate.replace('${GIT_COMMIT_ID}', GIT_COMMIT_ID)
-		emailTemplate = emailTemplate.replace('${GIT_COMMIT_MESSAGES}', GIT_COMMIT_MESSAGES)
-		emailTemplate = emailTemplate.replace('${GIT_DATE_MODIFIED}', GIT_DATE_MODIFIED)
-                emailTemplate = emailTemplate.replace('${GIT_COMMITTER_NAME}', GIT_COMMITTER_NAME)
-                emailTemplate = emailTemplate.replace('${GIT_COMMITTER_EMAIL}', GIT_COMMITTER_EMAIL)
-                emailTemplate = emailTemplate.replace('${GIT_AUTHOR_NAME}', GIT_AUTHOR_NAME)
-                emailTemplate = emailTemplate.replace('${GIT_AUTHOR_EMAIL}', GIT_AUTHOR_EMAIL)
-                emailTemplate = emailTemplate.replace('${APPLICATION_URL}', APPLICATION_URL)
+
+                if (!environmentName) {
+                    error("Unsupported branch: ${BRANCH_NAME}")
+                }
+
+                emailTemplate = emailTemplate.replace('${ENVIRONMENT_NAME}', environmentName)
+                emailTemplate = emailTemplate.replace('${GIT_COMMIT_ID}', gitCommitId)
+                emailTemplate = emailTemplate.replace('${GIT_COMMIT_MESSAGES}', gitCommitMessages)
+                emailTemplate = emailTemplate.replace('${GIT_DATE_MODIFIED}', gitDateModified)
+                emailTemplate = emailTemplate.replace('${GIT_COMMITTER_NAME}', gitCommitterName)
+                emailTemplate = emailTemplate.replace('${GIT_COMMITTER_EMAIL}', gitCommitterEmail)
+                emailTemplate = emailTemplate.replace('${GIT_AUTHOR_NAME}', gitAuthorName)
+                emailTemplate = emailTemplate.replace('${GIT_AUTHOR_EMAIL}', gitAuthorEmail)
+                emailTemplate = emailTemplate.replace('${APPLICATION_URL}', applicationUrl)
+
                 emailext(
-                    subject: "$JOB_NAME - Build # $BUILD_NUMBER - SUCCESS!!!",
+                    subject: "${JOB_NAME} - Build # ${BUILD_NUMBER} - SUCCESS!!!",
                     to: "${EMAIL_TO}",
                     body: emailTemplate,
                     mimeType: 'text/html',
-                    attachLog: true,  
+                    attachLog: true
                 )
             }
         }

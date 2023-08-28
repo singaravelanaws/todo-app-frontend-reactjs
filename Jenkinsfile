@@ -5,7 +5,6 @@ pipeline {
         DEV_PROJECT = 'prj-contentportal-dev-389901'
         TEST_PROJECT = 'prj-contentportal-test-389901'
         EMAIL_TO = 'singaravelan.palani@sifycorp.com'
-        BRANCH_NAME = 'env.GIT_BRANCH'
     }
 
     stages {
@@ -14,8 +13,9 @@ pipeline {
                 script {
                     def project
                     def environmentName
+                    def gitBranch = env.GIT_BRANCH ?: 'unknown'
 
-                    switch (BRANCH_NAME) {
+                    switch (gitBranch) {
                         case 'refs/heads/master':
                             project = DEV_PROJECT
                             environmentName = 'Development'
@@ -25,11 +25,11 @@ pipeline {
                             environmentName = 'Testing'
                             break
                         default:
-                            error("Unsupported branch: ${BRANCH_NAME}")
+                            error("Unsupported branch: ${gitBranch}")
                     }
 
                     sh "gcloud config set project ${project}"
-                    echo "This is ${BRANCH_NAME}"
+                    echo "This is ${gitBranch}"
                 }
             }
         }
@@ -48,8 +48,9 @@ pipeline {
                 def gitAuthorEmail = sh(returnStdout: true, script: 'git log -1 --pretty=format:"%ae"').trim()
                 def applicationUrl
                 def environmentName
+                def gitBranch = env.GIT_BRANCH ?: 'unknown'
 
-                switch (BRANCH_NAME) {
+                switch (gitBranch) {
                     case 'refs/heads/master':
                         environmentName = 'Development'
                         applicationUrl = 'http://crp-dev.sify.digital'
@@ -61,7 +62,7 @@ pipeline {
                 }
 
                 if (!environmentName) {
-                    error("Unsupported branch: ${BRANCH_NAME}")
+                    error("Unsupported branch: ${gitBranch}")
                 }
 
                 emailTemplate = emailTemplate.replace('${ENVIRONMENT_NAME}', environmentName)

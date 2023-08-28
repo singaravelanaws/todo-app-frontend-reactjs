@@ -11,12 +11,12 @@ pipeline {
         stage('Build') {
             steps {
                 script {
-			if (${BRANCH_NAME} == 'master') {
+			if ('${BRANCH_NAME}' == 'master') {
                       		sh'''
 					gcloud config set project ${DEV_PROJECT}
 					echo "this is ${BRANCH_NAME}"
 				'''
-                   	 } else if (${BRANCH_NAME} == 'test') {
+                   	 } else if ('${BRANCH_NAME}' == 'test') {
                         	sh'''
 					gcloud config set project ${TEST_PROJECT}
 					echo "this is ${BRANCH_NAME}"

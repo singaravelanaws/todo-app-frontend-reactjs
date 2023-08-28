@@ -35,7 +35,7 @@ pipeline {
             
                 def emailTemplate = readFile("email-template.html")
                 
-                if ('${BRANCH_NAME}' == 'development') {
+                if ('${BRANCH_NAME}' == 'master') {
 			ENVIRONMENT_NAME = 'Development'
 			GIT_COMMIT_ID = sh(returnStdout: true, script: 'git rev-parse HEAD').trim()
 			GIT_COMMIT_MESSAGES = sh(returnStdout: true, script: 'git log --pretty=format:"%s" $GIT_COMMIT^..$GIT_COMMIT').trim()

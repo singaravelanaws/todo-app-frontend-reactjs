@@ -5,7 +5,6 @@ pipeline {
         DEV_PROJECT = 'prj-contentportal-dev-389901'
         TEST_PROJECT = 'prj-contentportal-test-389901'
         EMAIL_TO = 'singaravelan.palani@sifycorp.com'
-        BRANCH_NAME = env.GIT_BRANCH ?: 'unknown'
     }
 
     stages {
@@ -14,22 +13,23 @@ pipeline {
                 script {
                     def project
                     def environmentName
+                    def gitBranch = env.GIT_BRANCH ?: 'unknown'
 
-                    switch (BRANCH_NAME) {
-                        case 'refs/heads/master':
+                    switch (gitBranch) {
+                        case 'origin/master':
                             project = DEV_PROJECT
                             environmentName = 'Development'
                             break
-                        case 'refs/heads/test':
+                        case 'origin/test':
                             project = TEST_PROJECT
                             environmentName = 'Testing'
                             break
                         default:
-                            error("Unsupported branch: ${BRANCH_NAME}")
+                            error("Unsupported branch: ${gitBranch}")
                     }
 
                     sh "gcloud config set project ${project}"
-                    echo "This is ${BRANCH_NAME}"
+                    echo "This is ${gitBranch}"
                 }
             }
         }
@@ -48,20 +48,21 @@ pipeline {
                 def gitAuthorEmail = sh(returnStdout: true, script: 'git log -1 --pretty=format:"%ae"').trim()
                 def applicationUrl
                 def environmentName
+                def gitBranch = env.GIT_BRANCH ?: 'unknown'
 
-                switch (BRANCH_NAME) {
-                    case 'refs/heads/master':
+                switch (gitBranch) {
+                    case 'origin/master':
                         environmentName = 'Development'
                         applicationUrl = 'http://crp-dev.sify.digital'
                         break
-                    case 'refs/heads/test':
+                    case 'origin/test':
                         environmentName = 'Testing'
                         applicationUrl = 'http://crp-test.sify.digital'
                         break
                 }
 
                 if (!environmentName) {
-                    error("Unsupported branch: ${BRANCH_NAME}")
+                    error("Unsupported branch: ${gitBranch}")
                 }
 
                 emailTemplate = emailTemplate.replace('${ENVIRONMENT_NAME}', environmentName)

@@ -6,11 +6,11 @@ pipeline {
 	TEST_PROJECT = 'prj-contentportal-test-389901'
         EMAIL_TO = "singaravelan.palani@sifycorp.com"	    
     }
-    def branchName = env.BRANCH_NAME
     stages {
         stage('Build') {
             steps {
                 script {
+			def branchName = env.BRANCH_NAME
 			if (branchName == 'master') {
                       		sh'''
 					gcloud config set project ${DEV_PROJECT}

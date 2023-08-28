@@ -5,21 +5,21 @@ pipeline {
         DEV_PROJECT = 'prj-contentportal-dev-389901'
 	TEST_PROJECT = 'prj-contentportal-test-389901'
         EMAIL_TO = "singaravelan.palani@sifycorp.com"	  
-	BRANCH_NAME = sh(returnStdout: true, script: 'git rev-parse --abbrev-ref HEAD').trim()
+        BRANCH_NAME = sh(returnStdout: true, script: 'git rev-parse --abbrev-ref HEAD').trim()
     }
     stages {
         stage('Build') {
             steps {
                 script {
-			if ('master' == 'master') {
+			if (BRANCH_NAME == 'master') {
                       		sh'''
 					gcloud config set project ${DEV_PROJECT}
-					echo "this is master branch"
+					echo "this is ${BRANCH_NAME}"
 				'''
-                   	 } else if ('test' == 'test') {
+                   	 } else if (BRANCH_NAME == 'test') {
                         	sh'''
 					gcloud config set project ${TEST_PROJECT}
-					echo "this is test branch"
+					echo "this is ${BRANCH_NAME} branch"
 				'''
                     	} else {
                         	error("Unsupported branch ")
@@ -35,7 +35,7 @@ pipeline {
             
                 def emailTemplate = readFile("email-template.html")
                 
-                if ('master' == 'master') {
+                if (BRANCH_NAME == 'master') {
 			ENVIRONMENT_NAME = 'Development'
 			GIT_COMMIT_ID = sh(returnStdout: true, script: 'git rev-parse HEAD').trim()
 			GIT_COMMIT_MESSAGES = sh(returnStdout: true, script: 'git log --pretty=format:"%s" $GIT_COMMIT^..$GIT_COMMIT').trim()
@@ -45,7 +45,7 @@ pipeline {
 			GIT_AUTHOR_NAME = sh(returnStdout: true, script: 'git log -1 --pretty=format:"%an"').trim()
 			GIT_AUTHOR_EMAIL = sh(returnStdout: true, script: 'git log -1 --pretty=format:"%ae"').trim()
 			APPLICATION_URL = 'http://crp-dev.sify.digital'
-                } else if ('test' == 'test') {
+                } else if (BRANCH_NAME == 'test') {
 			ENVIRONMENT_NAME = 'Testing'
 			GIT_COMMIT_ID = sh(returnStdout: true, script: 'git rev-parse HEAD').trim()
 			GIT_COMMIT_MESSAGES = sh(returnStdout: true, script: 'git log --pretty=format:"%s" $GIT_COMMIT^..$GIT_COMMIT').trim()

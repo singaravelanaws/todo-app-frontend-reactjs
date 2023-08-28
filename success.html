@@ -114,31 +114,43 @@
                 <tbody>
                     <tr>
                         <th>JOB_NAME:</th>
-                        <td>${PROJECT_NAME}</td>
+                        <td>${JOB_NAME}</td>
                     </tr>
                     <tr>
-                        <th>BRANCH:</th>
+                        <th>GIT_BRANCH:</th>
                         <td>${GIT_BRANCH}</td>
                     </tr>
                     <tr>
-                        <th>COMMIT_ID:</th>
-                        <td>${COMMITID}</td>
+                        <th>GIT_COMMIT_ID:</th>
+                        <td>${GIT_COMMIT_ID}</td>
                     </tr>
                     <tr>
-                        <th>AUTHOR:</th>
-                        <td>${AUTHOR}</td>
+                        <th>GIT_COMMIT_MESSAGES:</th>
+                        <td>${GIT_COMMIT_MESSAGES}</td>
                     </tr>
                     <tr>
-                        <th>COMMIT_MESSAGES:</th>
-                        <td>${COMMIT_MESSAGES}</td>
+                        <th>GIT_DATE_MODIFIED:</th>
+                        <td>${GIT_DATE_MODIFIED}</td>
                     </tr>
                     <tr>
-                        <th>DATE_MODIFIED:</th>
-                        <td>${DATE_MODIFIED}</td>
-                    </tr>    
+                        <th>GIT_COMMITTER_NAME:</th>
+                        <td>${GIT_COMMITTER_NAME}</td>
+                    </tr>  
+                    <tr>
+                        <th>GIT_AUTHOR_NAME:</th>
+                        <td>${GIT_AUTHOR_NAME}</td>
+                    </tr>  
+                    <tr>
+                        <th>GIT_AUTHOR_EMAIL:</th>
+                        <td>${GIT_AUTHOR_EMAIL}</td>
+                    </tr>  
+                    <tr>
+                        <th>NODE_NAME:</th>
+                        <td>${NODE_NAME}</td>
+                    </tr>  
                     <tr>
                         <th>BUILD_URL:</th>
-						<td><a href="${BUILD_URL}">${BUILD_URL}</a></td>
+			<td><a href="${BUILD_URL}">${BUILD_URL}</a></td>
                     </tr>
                     <tr>
                         <th>BUILD_NO:</th>
@@ -147,6 +159,10 @@
                     <tr>
                         <th>JENKINS_URL:</th>
                         <td><a href="${JENKINS_URL}">${JENKINS_URL}</a></td>
+                    </tr>
+                    <tr>
+                        <th>APPLICATION_URL:</th>
+                        <td><a href="${APPLICATION_URL}">${JENKINS_URL}</a></td>
                     </tr>
                 </tbody>
             </table>

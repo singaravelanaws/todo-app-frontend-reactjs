@@ -67,7 +67,7 @@ pipeline {
                 emailTemplate = emailTemplate.replace('${GIT_AUTHOR_EMAIL}', GIT_AUTHOR_EMAIL)
                 emailTemplate = emailTemplate.replace('${APPLICATION_URL}', APPLICATION_URL)
                 emailext(
-                    subject: "$PROJECT_NAME - Build # $BUILD_NUMBER - $BUILD_STATUS!!!",
+                    subject: "$JOB_NAME - Build # $BUILD_NUMBER - $BUILD_STATUS!!!",
                     to: "${EMAIL_TO}",
                     body: emailTemplate,
                     mimeType: 'text/html',

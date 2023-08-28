@@ -14,7 +14,7 @@ pipeline {
     stages {
         stage('Build') {
             steps {
-                echo ${ENVIRONMENT} ${COMMITID} ${DATE_MODIFIED}
+                sh 'echo ${ENVIRONMENT} ${COMMITID} ${DATE_MODIFIED}'
             }
         }
     }

@@ -5,7 +5,7 @@ pipeline {
         DEV_PROJECT = 'prj-contentportal-dev-389901'
 	TEST_PROJECT = 'prj-contentportal-test-389901'
         EMAIL_TO = "singaravelan.palani@sifycorp.com"	  
-        BRANCH_NAME = sh(returnStdout: true, script: 'git rev-parse --abbrev-ref HEAD').trim()
+	BRANCH_NAME = env.GIT_BRANCH ?: 'unknown'
     }
     stages {
         stage('Build') {

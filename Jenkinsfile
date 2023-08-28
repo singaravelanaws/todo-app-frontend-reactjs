@@ -4,25 +4,25 @@ pipeline {
     environment {
         DEV_PROJECT = 'prj-contentportal-dev-389901'
 	TEST_PROJECT = 'prj-contentportal-test-389901'
-        EMAIL_TO = "singaravelan.palani@sifycorp.com"	    
+        EMAIL_TO = "singaravelan.palani@sifycorp.com"	  
+	BRANCH_NAME = sh(returnStdout: true, script: 'git rev-parse --abbrev-ref HEAD').trim()
     }
     stages {
         stage('Build') {
             steps {
                 script {
-			def branchName = env.BRANCH_NAME
-			if (branchName == 'master') {
+			if (${BRANCH_NAME} == 'master') {
                       		sh'''
 					gcloud config set project ${DEV_PROJECT}
-					echo "this is ${branchName}"
+					echo "this is ${BRANCH_NAME}"
 				'''
-                   	 } else if (branchName == 'test') {
+                   	 } else if (${BRANCH_NAME} == 'test') {
                         	sh'''
 					gcloud config set project ${TEST_PROJECT}
-					echo "this is ${branchName}"
+					echo "this is ${BRANCH_NAME}"
 				'''
                     	} else {
-                        	error("Unsupported branch: ${branchName}")
+                        	error("Unsupported branch: ${BRANCH_NAME}")
                     	}
 		      }
             	}

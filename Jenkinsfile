@@ -22,10 +22,10 @@ pipeline {
         always {
             script {
                 def emailTemplate = readFile("${EMAIL_TEMPLATE_FILE}")
-                emailTemplate = emailTemplate.replaceAll('\\${DATE_MODIFIED}', DATE_MODIFIED)
-                emailTemplate = emailTemplate.replaceAll('\\${ENVIRONMENT}', ENVIRONMENT)
-                emailTemplate = emailTemplate.replaceAll('\\${COMMITID}', COMMITID)
-                emailTemplate = emailTemplate.replaceAll('\\${AUTHOR}', AUTHOR)
+                emailTemplate = emailTemplate.replace('${ENVIRONMENT}', ENVIRONMENT)
+                emailTemplate = emailTemplate.replace('${COMMITID}', COMMITID)
+                emailTemplate = emailTemplate.replace('${AUTHOR}', AUTHOR)
+                emailTemplate = emailTemplate.replace('${DATE_MODIFIED}', DATE_MODIFIED)
                 emailext(
                     subject: "Build Notification - ${ENVIRONMENT}",
                     to: "${EMAIL_TO}",

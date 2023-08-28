@@ -12,12 +12,12 @@ pipeline {
             steps {
                 script {
 		  	def branchName = env.BRANCH_NAME
-			if (branchName == 'dev') {
+			if (${branchName} == 'master') {
                       		sh'''
 					gcloud config set project ${DEV_PROJECT}
 					echo "this is ${branchName}"
 				'''
-                   	 } else if (branchName == 'test') {
+                   	 } else if (${branchName} == 'test') {
                         	sh'''
 					gcloud config set project ${TEST_PROJECT}
 					echo "this is ${branchName}"

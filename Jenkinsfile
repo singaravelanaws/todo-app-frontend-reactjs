@@ -30,7 +30,7 @@ pipeline {
     }
     
     post {
-        always {
+        success {
             script {
             
                 def emailTemplate = readFile("email-template.html")

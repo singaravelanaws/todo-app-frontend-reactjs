@@ -47,6 +47,7 @@ pipeline {
                 def gitAuthorName = sh(returnStdout: true, script: 'git log -1 --pretty=format:"%an"').trim()
                 def gitAuthorEmail = sh(returnStdout: true, script: 'git log -1 --pretty=format:"%ae"').trim()
                 def applicationUrl
+                def environmentName
 
                 switch (BRANCH_NAME) {
                     case 'refs/heads/master':
@@ -57,6 +58,10 @@ pipeline {
                         environmentName = 'Testing'
                         applicationUrl = 'http://crp-test.sify.digital'
                         break
+                }
+
+                if (!environmentName) {
+                    error("Unsupported branch: ${BRANCH_NAME}")
                 }
 
                 emailTemplate = emailTemplate.replace('${ENVIRONMENT_NAME}', environmentName)

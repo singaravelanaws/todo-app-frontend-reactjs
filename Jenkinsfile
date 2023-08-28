@@ -35,7 +35,7 @@ pipeline {
             
                 def emailTemplate = readFile("email-template.html")
                 
-                if (branchName == 'development') {
+                if (${BRANCH_NAME} == 'development') {
 			ENVIRONMENT_NAME = 'Development'
 			GIT_COMMIT_ID = sh(returnStdout: true, script: 'git rev-parse HEAD').trim()
 			GIT_COMMIT_MESSAGES = sh(returnStdout: true, script: 'git log --pretty=format:"%s" $GIT_COMMIT^..$GIT_COMMIT').trim()
@@ -45,7 +45,7 @@ pipeline {
 			GIT_AUTHOR_NAME = sh(returnStdout: true, script: 'git log -1 --pretty=format:"%an"').trim()
 			GIT_AUTHOR_EMAIL = sh(returnStdout: true, script: 'git log -1 --pretty=format:"%ae"').trim()
 			APPLICATION_URL = 'http://crp-dev.sify.digital'
-                } else if (branchName == 'test') {
+                } else if (${BRANCH_NAME} == 'test') {
 			ENVIRONMENT_NAME = 'Testing'
 			GIT_COMMIT_ID = sh(returnStdout: true, script: 'git rev-parse HEAD').trim()
 			GIT_COMMIT_MESSAGES = sh(returnStdout: true, script: 'git log --pretty=format:"%s" $GIT_COMMIT^..$GIT_COMMIT').trim()

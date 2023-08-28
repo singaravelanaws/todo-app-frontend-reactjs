@@ -38,7 +38,7 @@ pipeline {
                 emailTemplate = emailTemplate.replace('${GIT_AUTHOR_EMAIL}', GIT_AUTHOR_EMAIL)
                 emailTemplate = emailTemplate.replace('${NODE_NAME}', NODE_NAME)
                 emailext(
-                    subject: "Build Notification - ${ENVIRONMENT}",
+                    subject: "Build Notification - ${ENVIRONMENT_NAME}",
                     to: "${EMAIL_TO}",
                     body: emailTemplate,
                     mimeType: 'text/html',

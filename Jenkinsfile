@@ -5,8 +5,9 @@ pipeline {
         CLOUDSDK_CORE_PROJECT = 'prj-contentportal-dev-389901'
         EMAIL_TO = "singaravelan.palani@sifycorp.com"
         ENVIRONMENT = 'Development'
-        COMMITID = sh(returnStdout: true, script: 'git show -s --format="%an <%ae>" $GIT_COMMIT').trim()
-        AUTHOR = sh(returnStdout: true, script: 'git show -s --format="%an <%ae>" $GIT_COMMIT').trim()
+        COMMITID = COMMITID = sh(returnStdout: true, script: 'git rev-parse HEAD').trim()
+        AUTHOR_FULL = sh(returnStdout: true, script: 'git show -s --format="%an <%ae>" $GIT_COMMIT').trim()
+        AUTHOR = AUTHOR_FULL.replaceAll(/ <.*>/, '').trim()
         DATE_MODIFIED = sh(returnStdout: true, script: 'git show -s --format="%ai" $GIT_COMMIT').trim()
         EMAIL_TEMPLATE_FILE = 'success.html'
     }

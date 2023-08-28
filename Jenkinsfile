@@ -19,7 +19,7 @@ pipeline {
     stages {
         stage('Build') {
             steps {
-                // Your build steps here
+                sh 'Hi'
             }
         }
     }

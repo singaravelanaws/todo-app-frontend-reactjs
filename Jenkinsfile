@@ -11,12 +11,12 @@ pipeline {
         stage('Build') {
             steps {
                 script {
-			if (BRANCH_NAME == 'master') {
+			if (BRANCH_NAME == 'refs/heads/master') {
                       		sh'''
 					gcloud config set project ${DEV_PROJECT}
 					echo "this is ${BRANCH_NAME}"
 				'''
-                   	 } else if (BRANCH_NAME == 'test') {
+                   	 } else if (BRANCH_NAME == 'refs/heads/test') {
                         	sh'''
 					gcloud config set project ${TEST_PROJECT}
 					echo "this is ${BRANCH_NAME} branch"
@@ -35,7 +35,7 @@ pipeline {
             
                 def emailTemplate = readFile("email-template.html")
                 
-                if (BRANCH_NAME == 'master') {
+                if (BRANCH_NAME == 'refs/heads/master') {
 			ENVIRONMENT_NAME = 'Development'
 			GIT_COMMIT_ID = sh(returnStdout: true, script: 'git rev-parse HEAD').trim()
 			GIT_COMMIT_MESSAGES = sh(returnStdout: true, script: 'git log --pretty=format:"%s" $GIT_COMMIT^..$GIT_COMMIT').trim()
@@ -45,7 +45,7 @@ pipeline {
 			GIT_AUTHOR_NAME = sh(returnStdout: true, script: 'git log -1 --pretty=format:"%an"').trim()
 			GIT_AUTHOR_EMAIL = sh(returnStdout: true, script: 'git log -1 --pretty=format:"%ae"').trim()
 			APPLICATION_URL = 'http://crp-dev.sify.digital'
-                } else if (BRANCH_NAME == 'test') {
+                } else if (BRANCH_NAME == 'refs/heads/test') {
 			ENVIRONMENT_NAME = 'Testing'
 			GIT_COMMIT_ID = sh(returnStdout: true, script: 'git rev-parse HEAD').trim()
 			GIT_COMMIT_MESSAGES = sh(returnStdout: true, script: 'git log --pretty=format:"%s" $GIT_COMMIT^..$GIT_COMMIT').trim()

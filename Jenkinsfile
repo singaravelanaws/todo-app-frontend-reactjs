@@ -42,6 +42,7 @@ pipeline {
                     to: "${EMAIL_TO}",
                     body: emailTemplate,
                     mimeType: 'text/html',
+		    attachLog: true,
                 )
             }
         }

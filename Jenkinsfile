@@ -14,15 +14,15 @@ pipeline {
 			if ('master' == 'master') {
                       		sh'''
 					gcloud config set project ${DEV_PROJECT}
-					echo "this is ${BRANCH_NAME}"
+					echo "this is master branch"
 				'''
                    	 } else if ('test' == 'test') {
                         	sh'''
 					gcloud config set project ${TEST_PROJECT}
-					echo "this is ${BRANCH_NAME}"
+					echo "this is test branch"
 				'''
                     	} else {
-                        	error("Unsupported branch: ${BRANCH_NAME}")
+                        	error("Unsupported branch ")
                     	}
 		      }
             	}

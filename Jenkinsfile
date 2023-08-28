@@ -11,18 +11,19 @@ pipeline {
         stage('Build') {
             steps {
                 script {
-			if (${BRANCH_NAME} == 'master') {
+			def branchName = env.BRANCH_NAME
+			if (branchName == 'master') {
                       		sh'''
 					gcloud config set project ${DEV_PROJECT}
-					echo "this is ${BRANCH_NAME}"
+					echo "this is ${branchName}"
 				'''
-                   	 } else if (${BRANCH_NAME} == 'test') {
+                   	 } else if (branchName == 'test') {
                         	sh'''
 					gcloud config set project ${TEST_PROJECT}
-					echo "this is ${BRANCH_NAME}"
+					echo "this is ${branchName}"
 				'''
                     	} else {
-                        	error("Unsupported branch: ${BRANCH_NAME}")
+                        	error("Unsupported branch: ${branchName}")
                     	}
 		      }
             	}

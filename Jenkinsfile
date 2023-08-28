@@ -16,11 +16,11 @@ pipeline {
                     def gitBranch = env.GIT_BRANCH ?: 'unknown'
 
                     switch (gitBranch) {
-                        case 'refs/heads/master':
+                        case 'origin/master':
                             project = DEV_PROJECT
                             environmentName = 'Development'
                             break
-                        case 'refs/heads/test':
+                        case 'origin/test':
                             project = TEST_PROJECT
                             environmentName = 'Testing'
                             break
@@ -51,11 +51,11 @@ pipeline {
                 def gitBranch = env.GIT_BRANCH ?: 'unknown'
 
                 switch (gitBranch) {
-                    case 'refs/heads/master':
+                    case 'origin/master':
                         environmentName = 'Development'
                         applicationUrl = 'http://crp-dev.sify.digital'
                         break
-                    case 'refs/heads/test':
+                    case 'origin/test':
                         environmentName = 'Testing'
                         applicationUrl = 'http://crp-test.sify.digital'
                         break

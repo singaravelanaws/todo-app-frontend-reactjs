@@ -5,7 +5,7 @@ pipeline {
         DEV_PROJECT = 'prj-contentportal-dev-389901'
         TEST_PROJECT = 'prj-contentportal-test-389901'
         EMAIL_TO = 'singaravelan.palani@sifycorp.com'
-        BRANCH_NAME = env.GIT_BRANCH ?: 'unknown'
+        BRANCH_NAME = 'env.GIT_BRANCH ?: 'unknown''
     }
 
     stages {

@@ -6,6 +6,7 @@ pipeline {
         EMAIL_TO = "singaravelan.palani@sifycorp.com"
         ENVIRONMENT = 'Development'
         COMMITID = sh(returnStdout: true, script: 'git show -s --format="%an <%ae>" $GIT_COMMIT').trim()
+        AUTHOR = sh(returnStdout: true, script: 'git show -s --format="%an <%ae>" $GIT_COMMIT').trim()
         DATE_MODIFIED = sh(returnStdout: true, script: 'git show -s --format="%ai" $GIT_COMMIT').trim()
         EMAIL_TEMPLATE_FILE = 'success.html'
     }
